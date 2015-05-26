@@ -7,3 +7,5 @@ class Hamming
     mutations
   end
 end
+
+#figure out inject
