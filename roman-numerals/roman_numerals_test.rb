@@ -1,5 +1,6 @@
 gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative 'roman_numerals'
 
 class RomanTest < Minitest::Test
@@ -8,7 +9,6 @@ class RomanTest < Minitest::Test
   end
 
   def test_2
-    skip
     assert_equal 'II', 2.to_roman
   end
 
