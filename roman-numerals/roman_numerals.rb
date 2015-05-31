@@ -23,10 +23,14 @@ def to_roman(number = self)
 end
 
 def assign_letter(letter, value, number)
+  roman_array = Array.new
   x = number / value
-  return letter * x
+  roman_array << letter * x
   number -= x * value
-  unless number <= 0
+  until number <= 0
   to_roman(number)
+  end
+  return roman_array.join('')
+  roman_array.clear
 end
-end
+
