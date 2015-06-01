@@ -1,36 +1,14 @@
+
 public
 
-def to_roman(number = self)
-  if number >= 1000
-    assign_letter('M', 1000, number)
-  elsif number >= 500
-    assign_letter('D', 500, number)
-  elsif number >= 100
-    assign_letter('C', 100, number)
-  elsif number >= 50
-    assign_letter('L', 50, number)
-  elsif number >= 10
-    assign_letter('X', 10, number)
-  elsif number >= 5
-    assign_letter('V', 5, number)
-  else 
-    if number == 4
-      'IV'
-    else
-      assign_letter('I', 1, number)
-    end
+def to_roman(number = self.to_i, roman_number = '')
+  roman_hash = { 1000 => 'M', 900 => 'CM', 500 => 'D', 400 => 'CD', 100 => 'C',
+                 90 => 'XC', 50 => 'L', 40 => 'XL', 10 => 'X', 9 => 'IX',
+                 5 => 'V', 4 => 'IV', 1 => 'I' }
+  roman_hash.each_pair do |letter_value, letter|
+    repeat_letter = number / letter_value
+    roman_number += letter * repeat_letter
+    number -= letter_value * repeat_letter
   end
+  roman_number
 end
-
-def assign_letter(letter, value, number)
-  roman_array = Array.new
-  x = number / value
-  roman_array << letter * x
-  number -= x * value
-  until number <= 0
-  to_roman(number)
-  end
-  return roman_array.join('')
-  roman_array.clear
-end
-
