@@ -1,14 +1,13 @@
 public
 
-def nth(nth_prime, test_array = [0], p = 2, array_prime = [2])
+def nth(nth_prime, test_array = (2..100000).to_a, primes_array = [])
   raise ArgumentError, 'Must be an integer greater than 0' if nth_prime <= 0 || nth_prime.integer? == false
-  test_array |= (2..105000).to_a
-  until array_prime.length == nth_prime
-    test_array.reject! {|x| x % p == 0 && x != p} # use select! to delete multiples of x as well?
-    array_prime.push(p) if p != 2 
-    test_array.delete(p)
+  if primes_array.length != nth_prime
     p = test_array[0]
-    nth(nth_prime, test_array, p, array_prime)
+    test_array -= test_array.find_all {|i| i % p == 0}
+    primes_array << p
+    nth(nth_prime, test_array, primes_array)
+  else
+    primes_array[-1]
   end
-  array_prime[-1] # nth prime
 end

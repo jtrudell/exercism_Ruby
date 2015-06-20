@@ -37,6 +37,10 @@ class TestPrimes < Minitest::Test
     assert_equal 13, Prime.nth(6)
   end
 
+   def test_threehundredthree_prime
+    assert_equal 1999, Prime.nth(303)
+  end
+
   def test_big_prime
     skip
     assert_equal 104743, Prime.nth(10001)
