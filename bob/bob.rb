@@ -13,10 +13,10 @@ class Bob
   end
 
   def shouting(remark)
-    remark.upcase == remark ? true : false
+    remark.upcase == remark
   end
 
   def include_numbers(remark)
-    remark.to_f > 0 ? true : false
+    remark.to_f > 0
   end
 end
