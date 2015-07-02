@@ -1,8 +1,8 @@
 class Array
   def accumulate(&operation)
-    if operation.nil? then return []
+    if operation.nil? then []
     else
-      self.each_with_index { |n, i| self[i] = operation.call(n) }
+      self.each_with_index { |item, i| self[i] = operation.call(item) }
     end
   end
 end
