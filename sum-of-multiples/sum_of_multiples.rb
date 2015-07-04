@@ -1,8 +1,6 @@
 class SumOfMultiples
-  def initialize(x, y, z = x)
-    @x = x
-    @y = y
-    @z = z
+  def initialize(*divide_by)
+    @divide_by = *divide_by
   end
 
   def self.to(limit)
@@ -11,9 +9,11 @@ class SumOfMultiples
 
   def to(limit)
     numbers = []
-    (1...limit).to_a.each do |number|
-      if number % @x == 0 || number % @y == 0 || number % @z == 0
-        numbers << number
+    @divide_by.each do |divisor|
+      (1...limit).to_a.each do |number|
+        if number % divisor == 0 && !numbers.include?(number)
+          numbers << number
+        end
       end
     end
     numbers.empty? ? 0 : numbers.reduce(:+)
