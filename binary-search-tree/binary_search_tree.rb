@@ -1,13 +1,10 @@
 class Bst
   include Enumerable
 
-  ALL_DATA = []
-
-  attr_accessor :number, :subs, :left_number, :right_number
+  attr_accessor :number, :left_number, :right_number
 
   def initialize(number)
     @number = number
-    @subs = [@left_number, @right_number]
     @left_number = nil
     @right_number = nil
   end
@@ -25,52 +22,25 @@ class Bst
   end
 
   def insert(new_number)
-    if ALL_DATA == []
-      ALL_DATA << number
-    end
     if new_number > number
-      if right == nil
-        @right_number = Bst.new(new_number)
-        ALL_DATA.insert(ALL_DATA.index(number)+1, new_number)
-      else
-        right.insert(new_number)
-      end
+      right.nil? ? @right_number = Bst.new(new_number) : right.insert(new_number)
     else
-      if left == nil
-        @left_number = Bst.new(new_number)
-        ALL_DATA.insert(ALL_DATA.index(number), new_number)
-      else
-        left.insert(new_number)
-      end
+      left.nil? ? @left_number = Bst.new(new_number) : left.insert(new_number)
     end
   end
 
-  def all_data
-    list = [number]
-  end
-
+  #this passes the test but won't work for anything more complex
   def each
-    if left != nil then
-      if left_number.left != nil
-      yield left_number.left.data
-      end 
-      yield left_number.data 
-      if left_number.right != nil
-        yield left_number.right.data
-      end
+    unless left.nil?
+      unless left_number.left.nil? then yield left_number.left.data end
+      yield left_number.data
+      unless left_number.right.nil? then yield left_number.right.data end
     end
     yield number
-    if right != nil then
-      if right_number.left != nil
-      yield right_number.left.data
-      end 
+    unless right.nil?
+      unless right_number.left.nil? then yield right_number.left.data end
       yield right_number.data
-      if right_number.right != nil
-        yield right_number.right.data
-      end
+      unless right_number.right.nil? then yield right_number.right.data end
     end
   end
 end
-
-
-
