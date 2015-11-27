@@ -1,6 +1,7 @@
 class Crypto
   def initialize(phrase)
     @phrase = phrase
+    @ciphered = ""
   end
 
   def normalize_plaintext
@@ -10,7 +11,7 @@ class Crypto
 
   def size
     normalize_plaintext
-    num_rows = Math.sqrt(@phrase.length).ceil
+    Math.sqrt(@phrase.length).ceil
   end
 
   def plaintext_segments
@@ -22,4 +23,19 @@ class Crypto
     end
     segments
   end
+
+  def ciphertext
+    segments = plaintext_segments
+    segments.map! {|row| row.split("")}
+    until segments.last.length == segments.length
+      segments.last << nil
+    end
+    segments = segments.transpose
+      segments.map! do |segment|
+        segment.delete(nil)
+        segment.join
+      end
+      segments.join
+  end
+
 end
