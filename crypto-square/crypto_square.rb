@@ -12,4 +12,14 @@ class Crypto
     normalize_plaintext
     num_rows = Math.sqrt(@phrase.length).ceil
   end
+
+  def plaintext_segments
+    normalized_phrase = normalize_plaintext
+    row_length = size
+    segments = []
+    while normalized_phrase.length > 0
+      segments << normalized_phrase.slice!(0, row_length)
+    end
+    segments
+  end
 end
