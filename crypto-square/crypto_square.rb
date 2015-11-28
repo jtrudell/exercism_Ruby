@@ -1,7 +1,9 @@
 class Crypto
+
+  attr_accessor :ciphered_string
+
   def initialize(phrase)
     @phrase = phrase
-    @ciphered = ""
   end
 
   def normalize_plaintext
@@ -15,7 +17,7 @@ class Crypto
   end
 
   def plaintext_segments
-    normalized_phrase = normalize_plaintext
+    normalized_phrase = @phrase
     row_length = size
     segments = []
     while normalized_phrase.length > 0
@@ -24,18 +26,31 @@ class Crypto
     segments
   end
 
-  def ciphertext
-    segments = plaintext_segments
-    segments.map! {|row| row.split("")}
-    until segments.last.length == segments.length
-      segments.last << nil
+  def generate_rows
+    square = plaintext_segments
+    square.map! {|row| row.split("")}
+    until square.last.length == square.length
+      square.last << nil
     end
-    segments = segments.transpose
-      segments.map! do |segment|
-        segment.delete(nil)
-        segment.join
-      end
-      segments.join
+    square
+  end
+
+  def generate_rows_from_columns
+    column_segments = generate_rows.transpose
+    column_segments.map! do |segment|
+      segment.delete(nil)
+      segment.join
+    end
+    column_segments
+  end
+
+  def ciphertext
+    ciphered_string = generate_rows_from_columns
+    ciphered_string.join
+  end
+
+  def normalize_ciphertext
+    "bop"
   end
 
 end
