@@ -1,27 +1,25 @@
 class Crypto
 
+  attr_reader :normalize_plaintext, :size
   attr_accessor :ciphered_string
 
   def initialize(phrase)
     @phrase = phrase
+    @normalize_plaintext = make_plain
+    @size = Math.sqrt(@phrase.length).ceil
+    @ciphered_string = ""
   end
 
-  def normalize_plaintext
+  def make_plain
     @phrase.downcase!
     @phrase.gsub!(/\W/, "")
   end
 
-  def size
-    normalize_plaintext
-    Math.sqrt(@phrase.length).ceil
-  end
-
   def plaintext_segments
-    normalized_phrase = @phrase
     row_length = size
     segments = []
-    while normalized_phrase.length > 0
-      segments << normalized_phrase.slice!(0, row_length)
+    while @phrase.length > 0
+      segments << @phrase.slice!(0, row_length)
     end
     segments
   end
@@ -46,11 +44,16 @@ class Crypto
 
   def ciphertext
     ciphered_string = generate_rows_from_columns
-    ciphered_string.join
+    @ciphered_string = ciphered_string.join
   end
 
   def normalize_ciphertext
-    "bop"
+    square = plaintext_segments
+    square.map! {|row| row.split("")}
+    square.transpose.each_with_index do |row, index|
+      square[index] = row.join
+    end
+    square.join(" ")
   end
 
 end
