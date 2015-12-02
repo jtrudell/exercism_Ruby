@@ -11,6 +11,8 @@ class Clock
     @time.map! do |num|
       if num.to_i < 10
         num = "0#{num}"
+      else
+        num = num
       end
     end
     @time.join(":")

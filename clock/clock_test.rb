@@ -10,7 +10,6 @@ class ClockTest < Minitest::Test
   end
 
   def test_past_the_hour
-    skip
     assert_equal '11:09', Clock.at(11, 9).to_s
   end
 
@@ -39,14 +38,12 @@ class ClockTest < Minitest::Test
   end
 
   def test_equivalent_clocks
-    skip
     clock1 = Clock.at(15, 37)
     clock2 = Clock.at(15, 37)
     assert_equal clock1, clock2
   end
 
   def test_inequivalent_clocks
-    skip
     clock1 = Clock.at(15, 37)
     clock2 = Clock.at(15, 36)
     clock3 = Clock.at(14, 37)
