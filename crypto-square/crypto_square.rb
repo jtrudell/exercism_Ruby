@@ -50,6 +50,9 @@ class Crypto
   def normalize_ciphertext
     square = plaintext_segments
     square.map! {|row| row.split("")}
+    until square.last.length == square.first.length
+      square.last << nil
+    end
     square.transpose.each_with_index do |row, index|
       square[index] = row.join
     end
