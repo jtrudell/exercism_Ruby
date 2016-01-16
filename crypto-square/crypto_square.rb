@@ -28,11 +28,7 @@ class Crypto
 
   def encrypted_segments
     segments = generate_letters.transpose
-    segments.map! do |segment|
-      segment.delete(nil)
-      segment.join
-    end
-    segments
+    segments.map { |segment| segment.compact.join }
   end
 
   def ciphertext
@@ -41,7 +37,7 @@ class Crypto
 
   def normalize_ciphertext
     encrypted_letters = []
-    generate_letters.transpose.each_with_index { |row, index| encrypted_letters[index] = row.join }
+    generate_letters.transpose.each { |row| encrypted_letters << row.join }
     encrypted_letters.join(" ")
   end
 
