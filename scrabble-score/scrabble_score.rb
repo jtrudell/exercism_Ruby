@@ -10,7 +10,8 @@ class Scrabble
   }
 
   def initialize(word)
-    @word = word ? word.upcase.strip : ''
+    word ||= ''
+    @word = word.upcase.strip
   end
 
   def self.score(word)
@@ -18,10 +19,8 @@ class Scrabble
   end
 
   def score
-    @word.each_char.inject(0) { |sum, char| sum + score_char(char) }
-  end
-
-  def score_char(char)
-    SCORING.each_pair { |key, value| return key if value.include?(char) }
+    @word.each_char.inject(0) do |sum, char|
+      sum + SCORING.select { |key, value| value.include?(char) }.flatten[0]
+    end
   end
 end
