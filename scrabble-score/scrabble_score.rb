@@ -10,8 +10,7 @@ class Scrabble
   }
 
   def initialize(word)
-    word ||= ''
-    @word = word.upcase.strip
+    @word = word.to_s.upcase.strip
   end
 
   def self.score(word)
