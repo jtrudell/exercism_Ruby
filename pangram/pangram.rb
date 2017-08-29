@@ -1,6 +1,7 @@
 class Pangram
+  require 'set'
   def self.pangram?(phrase)
-    ("a".."z").all? { |letter| phrase.downcase.include?(letter) }
+    Set.new("a".."z").subset?(Set.new(phrase.downcase.split('')))
   end
 end
 
